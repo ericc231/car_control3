@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Camera
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,173 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">Camera</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-item>
+    <ion-label >Camera Ip</ion-label>
+    <ion-input [(ngModel)]="camIp" readonly></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label >Resolution</ion-label>
+    <ion-select class="myCustomSelect" [(ngModel)]="camConfig.framesize" (ngModelChange)="updateValue('framesize','framesize')"
+      [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select One">
+      <ion-select-option *ngFor="let frameSize of frameSizes" [value]="frameSize.value">
+        {{frameSize.description}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label >Quality</ion-label>
+    <ion-range min="10" max="63" color="secondary" [(ngModel)]="camConfig.quality" (ngModelChange)="updateValue('quality','quality')">
+      <ion-label slot="start">10</ion-label>
+      <ion-label slot="end">63</ion-label>
+      <ion-label slot="end">{{camConfig.quality}}</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-item>
+    <ion-label >Brightness</ion-label>
+    <ion-range min="-2" max="2" color="secondary" [(ngModel)]="camConfig.brightness" (ngModelChange)="updateValue('brightness','brightness')">
+      <ion-label slot="start">-2</ion-label>
+      <ion-label slot="end">2</ion-label>
+      <ion-label slot="end">{{camConfig.brightness}}</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-item>
+    <ion-label >Contrast</ion-label>
+    <ion-range min="-2" max="2" color="secondary" [(ngModel)]="camConfig.contrast" (ngModelChange)="updateValue('contrast','contrast')">
+      <ion-label slot="start">-2</ion-label>
+      <ion-label slot="end">2</ion-label>
+      <ion-label slot="end">{{camConfig.contrast}}</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-item>
+    <ion-label >Saturation</ion-label>
+    <ion-range min="-2" max="2" color="secondary" [(ngModel)]="camConfig.saturation" (ngModelChange)="updateValue('saturation','saturation')">
+      <ion-label slot="start">-2</ion-label>
+      <ion-label slot="end">2</ion-label>
+      <ion-label slot="end">{{camConfig.saturation}}</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-item>
+    <ion-label >Special Effect</ion-label>
+    <ion-select class="myCustomSelect" [(ngModel)]="camConfig.specialEffect" (ngModelChange)="updateValue('specialEffect','special_effect')"
+      [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select One">
+      <ion-select-option *ngFor="let specialEffect of specialEffects" [value]="specialEffect.value">
+        {{specialEffect.description}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label >AWB</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.awb" slot="end" (ngModelChange)="updateBoolean('awb','awb')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >AWB Gain</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.awbGain" slot="end" (ngModelChange)="updateBoolean('awbGain','awb_gain')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >WB mode</ion-label>
+    <ion-select class="myCustomSelect" [(ngModel)]="camConfig.wbMode" (ngModelChange)="updateValue('wbMode','wb_mode')"
+      [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select One">
+      <ion-select-option *ngFor="let wbMode of wbModes" [value]="wbMode.value">
+        {{wbMode.description}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label >AEC Sensor</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.aecSensor" slot="end" (ngModelChange)="updateBoolean('aecSensor','aec')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >AEC DSP</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.aecDsp" slot="end" (ngModelChange)="updateBoolean('aecDsp','aec2')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >AE Level</ion-label>
+    <ion-range min="-2" max="2" color="secondary" [(ngModel)]="camConfig.aeLevel" (ngModelChange)="updateValue('aeLevel','ae_level')">
+      <ion-label slot="start">-2</ion-label>
+      <ion-label slot="end">2</ion-label>
+      <ion-label slot="end">{{camConfig.aeLevel}}</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-item>
+    <ion-label >Exposure</ion-label>
+    <ion-range min="0" max="1200" color="secondary" [(ngModel)]="camConfig.aecValue" (ngModelChange)="updateValue('aecValue','aec_value')">
+      <ion-label slot="start">0</ion-label>
+      <ion-label slot="end">1200</ion-label>
+      <ion-label slot="end">{{camConfig.aecValue}}</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-item>
+    <ion-label >AGC</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.agc" slot="end" (ngModelChange)="updateBoolean('agc','agc')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >Gain</ion-label>
+    <ion-range min="0" max="30" color="secondary" [(ngModel)]="camConfig.agcGain" (ngModelChange)="updateValue('agcGain','agc_gain')">
+      <ion-label slot="start">0</ion-label>
+      <ion-label slot="end">30</ion-label>
+      <ion-label slot="end">{{camConfig.agcGain}}</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-item>
+    <ion-label >Gain Ceiling</ion-label>
+    <ion-range min="0" max="6" color="secondary" [(ngModel)]="camConfig.gainceiling" (ngModelChange)="updateValue('gainceiling','ginceiling')">
+      <ion-label slot="start">0</ion-label>
+      <ion-label slot="end">6</ion-label>
+      <ion-label slot="end">{{camConfig.gainceiling}}</ion-label>
+    </ion-range>
+  </ion-item>
+  <ion-item>
+    <ion-label >BPC</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.bpc" slot="end" (ngModelChange)="updateBoolean('bpc','bpc')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >WPC</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.wpc" slot="end" (ngModelChange)="updateBoolean('wpc','wpc')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >Raw GMA</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.rawGma" slot="end" (ngModelChange)="updateBoolean('rawGma','raw_gma')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >Lens Correction</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.lenc" slot="end" (ngModelChange)="updateBoolean('lenc','lenc')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >H-Mirror</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.hmirror" slot="end" (ngModelChange)="updateBoolean('hmirror','hmirror')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >V-Flip</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.vflip" slot="end" (ngModelChange)="updateBoolean('vflip','vflip')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >DCW (Downsize EN)</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.dcw" slot="end" (ngModelChange)="updateBoolean('dcw','dcw')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >Color Bar</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.colorbar" slot="end" (ngModelChange)="updateBoolean('colorbar','colorbar')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >Face Detection</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.faceDetect" slot="end" (ngModelChange)="updateBoolean('faceDetect','face_detect')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >Face Recognition</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.faceRecognize" slot="end" (ngModelChange)="updateBoolean('faceRecognize','face_recognize')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label >Flash On</ion-label>
+    <ion-toggle [(ngModel)]="camConfig.flashOn" slot="end" (ngModelChange)="updateBoolean('flashOn','flash_on')"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-button disabled="true" (click)="enrollFace()">
+      <ion-icon slot="start" name="person-add"></ion-icon>
+      Enroll Face
+    </ion-button>
+  </ion-item>
+  
 </ion-content>

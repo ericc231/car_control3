@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Joystick
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,32 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Joystick</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-item>
+    <ion-label>
+      CONNECT STATUS
+    </ion-label>
+    <ion-icon name="cellular-outline" slot="end" color="success" style="{{iconStyle1}}"></ion-icon>
+    <ion-icon name="cellular" slot="end" color="success" style="{{iconStyle2}}"></ion-icon>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-button (click)="getStill()" disabled="{{btn1Disabled}}" >
+      <ion-icon slot="start" name="logo-instagram"></ion-icon>
+      Get Still
+    </ion-button>
+    <ion-button (click)="clickStreaming()" disabled="{{btn2Disabled}}" >
+      <ion-icon slot="start" name="videocam"></ion-icon>
+      {{streamingButtonLabel}}
+    </ion-button>
+    <ion-button (click)="flashControl()" disabled="{{btn3Disabled}}" >
+      <ion-icon slot="start" name="bulb"></ion-icon>
+      Flash Control
+    </ion-button>
+  </ion-item>
+  <img src={{imgsrc}} style="{{imgStyle}}">
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div id="zone_joystickL"></div>
+  <div id="zone_joystickR"></div>
 </ion-content>
